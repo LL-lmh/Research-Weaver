@@ -54,13 +54,10 @@ Zotero retains the PDF. Obsidian 只保存派生的 Markdown 笔记与关系；S
 
 - 支持本地 Skills 与文件访问的 Codex；
 - Python 3.10 或更高版本；如果现有 `python --version` 已满足要求，直接使用当前环境，无需另装。本仓库当前已在 Python 3.12.7（Anaconda）验证；
-- 推荐安装方式需要 Node.js 与 npm，以便运行 `npx skills`；不使用 Node.js 时可选择后面的手动安装；
 - 正在运行且允许本地 API 的 Zotero Desktop；
 - 至少一个带有可读本地 PDF 附件的 Zotero 条目；
 - 一个已经创建好的 Obsidian Vault；
 - 可选：Better BibTeX，用于生成稳定的 Citation Key。
-
-Research Weaver 是 MCP-free Skill，不需要 Zotero MCP、Obsidian MCP 或其他 MCP server。
 
 ### 1.2 安装 Skill
 
