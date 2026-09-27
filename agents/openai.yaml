@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Weaver"
+  short_description: "Weave Zotero papers into traceable research assets"
+  default_prompt: "Use $research-weaver to turn a Zotero paper into an evidence-traceable Obsidian research asset."

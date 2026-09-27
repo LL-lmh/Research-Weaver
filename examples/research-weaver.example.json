@@ -1,0 +1,7 @@
+{
+  "vault": ".",
+  "papers_root": "Research/Papers",
+  "default_language": "zh-CN",
+  "note_naming": "slug-language",
+  "index_note": "Research/Paper Index.md"
+}

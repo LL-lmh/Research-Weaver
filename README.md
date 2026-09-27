@@ -1,221 +1,270 @@
-# Research Weaver（科研织网）
+# Research Weaver
 
-> 一个以 Zotero 为文献事实源、以 PDF 证据为基础、以 Obsidian 为长期知识库的独立 Codex Skill。
+**不是把论文变成摘要，而是把论文证据变成下一步研究。**
 
-## 项目状态
+Research Weaver 从 Zotero 原位读取论文，在 Obsidian 中留下可追溯、可质疑、可继续用于实验与写作的研究资产。
 
-- 类型：独立个人 Codex Skill
-- 当前阶段：产品定义草案
-- 目标用户：使用 Zotero、Codex、Obsidian 和 LaTeX 开展科研工作的研究者
-- 默认平台：Windows
-- 默认 Obsidian Vault：`D:\Obsidian\AI`
-- 默认论文笔记目录：`02科研/01日常积累/01论文阅读`
+## Why Research Weaver
 
-本项目参考并重构两套项目中已经验证的设计思想：
+**为什么选择它？**
 
-1. `zotero-obsidian-codex-workflow`：环境检查、文献目录、库内关联、综述和实验设计工作流。
-2. `DeepPaperNote`：Zotero 本地解析、PDF 证据提取、图表处理、深度阅读、质量校验与安全保存。
+- 原始 PDF 留在 Zotero，不重复下载、不复制进 Vault；
+- 论文主张、证据边界和你的推断不会混在一起；
+- 笔记不会停在总结，而会继续形成假设、实验和文献关系。
 
-Research Weaver 在运行时保持独立，不要求用户同时安装或调用上述两个 Skill。若后续复用其 MIT 许可代码，将保留原作者、许可证和修改说明。
+## 示例
 
-## 产品定义
-
-Research Weaver 不是摘要生成器，也不是固定目录的 Obsidian 模板。它负责把一篇论文从 Zotero 条目和 PDF 原文转化为可以长期复用的科研知识，并继续连接到文献关系、研究项目和 LaTeX 写作。
+<!-- TODO: Add a real before-and-after example here. -->
 
 ```text
-Zotero 条目与 PDF
-        ↓
-论文身份和来源验证
-        ↓
-PDF 证据提取与深度阅读
-        ↓
-Obsidian 单篇成品笔记
-        ↓
-理论、方法、数据集与相关文献关系
-        ↓
-研究问题、项目和实验设计
-        ↓
-BibTeX / LaTeX 写作
+paper evidence
+  → traceable research asset
+  → questionable assumption
+  → testable experiment
+  → literature network
+  → research writing
 ```
 
-每一条重要研究论断应能反向追踪：
+Research Weaver 通过三个契约实现这条路径：
+
+- **证据契约**：区分作者主张、论文证据、结论边界、读者推断和研究建议；
+- **研究转译契约**：把“值得复用的设计 → 所依赖的假设 → 可检验实验 → 后续问题”连成一条因果链；
+- **文献编织契约**：只建立有类型、有理由、有研究用途的论文关系，不用模糊的“相似”链接。
+
+Zotero retains the PDF. Obsidian 只保存派生的 Markdown 笔记与关系；Skill 不把完整 PDF 复制进 Vault。
+
+## 1. 安装指南
+
+### 1.1 环境要求
+
+开始前请准备：
+
+- 支持本地 Skills 与文件访问的 Codex；
+- Python 3.10 或更高版本；辅助脚本仅使用标准库；
+- 正在运行且允许本地 API 的 Zotero Desktop；
+- 至少一个带有可读本地 PDF 附件的 Zotero 条目；
+- 一个已经创建好的 Obsidian Vault；
+- 可选：Better BibTeX，用于生成稳定的 Citation Key。
+
+Research Weaver 是 MCP-free Skill，不需要 Zotero MCP、Obsidian MCP 或其他 MCP server。
+
+### 1.2 安装 Skill
+
+将仓库克隆到 Codex 的个人 Skills 目录。
+
+Windows PowerShell：
+
+```powershell
+git clone https://github.com/jvrczt8hvt-byte/Research-Weaver.git "$env:CODEX_HOME\skills\research-weaver"
+```
+
+macOS / Linux：
+
+```bash
+git clone https://github.com/jvrczt8hvt-byte/Research-Weaver.git "$CODEX_HOME/skills/research-weaver"
+```
+
+如果 `CODEX_HOME` 尚未设置，Codex 的默认目录通常是用户主目录下的 `.codex`，因此目标目录应为 `.codex/skills/research-weaver`。
+
+安装完成后，重新启动 Codex 或新建一个任务，让 Codex 重新发现 Skill。
+
+### 1.3 确认安装成功
+
+在 Codex 中输入：
 
 ```text
-项目或草稿中的论断
-→ Obsidian 论文笔记
-→ Better BibTeX citekey
-→ Zotero 条目
-→ PDF 原文证据
+$research-weaver 告诉我你能处理哪些论文输入，以及会生成什么结果。不要写入任何文件。
 ```
 
-## 服务对象
+如果 Codex 能识别 `$research-weaver` 并说明 Zotero 读取、证据分析和 Obsidian 输出能力，说明安装已经生效。
 
-主要服务于：
+也可以在仓库目录检查两个辅助脚本：
 
-- 使用 Zotero 管理文献、PDF 和批注的研究者；
-- 使用 Obsidian 建设长期科研知识库的研究者；
-- 需要方法、实验、结果与局限分析，而不满足于摘要改写的用户；
-- 希望笔记继续服务选题、综述、实验设计和 LaTeX 写作的用户；
-- 已有自己的 Vault 结构，不希望被固定 `Research vault` 绑定的用户。
+```powershell
+python scripts/zotero_local.py status
+python scripts/note_store.py --help
+```
 
-不面向：
+第一条命令用于确认 Zotero Local API 是否可访问；第二条命令只显示帮助，不会写入文件。
 
-- 仅需快速摘要的场景；
-- 缺少可靠 PDF 却要求生成“深度笔记”的场景；
-- 大规模系统综述筛选、PRISMA 管理和统计编码；
-- 无确认地批量修改 Zotero 条目或覆盖 Obsidian 笔记；
-- 将模型推断伪装成论文原文事实的场景。
+### 1.4 首次配置
 
-## 核心功能
+第一次执行需要读取或写入 Obsidian 文献库的任务时，Skill 会询问：
 
-### 1. Zotero-first 论文解析
+1. Obsidian Vault 的绝对路径；
+2. Vault 内的论文笔记子目录；
+3. 默认输出语言：`zh-CN`、`en` 或 `both`。
 
-支持 Zotero item key、论文标题、DOI、arXiv ID、本地 PDF 和论文 URL。优先查询 Zotero 本地库，验证唯一条目，取得元数据、citekey 和本地 PDF；本地没有附件时才使用受支持的外部来源。存在歧义时停止，由用户确认。
+确认后，配置保存在用户私有配置目录，而不是 GitHub Skill 文件夹。Windows 默认为 `%APPDATA%/research-weaver/config.json`；也可以通过 `RESEARCH_WEAVER_CONFIG` 指定位置。以后运行会先显示实际保存目录和语言，一次性覆盖不会修改默认设置。
 
-### 2. 多重论文身份契约
+也可以手动配置：
 
-每篇论文维护统一身份：
+```powershell
+python scripts/note_store.py configure --vault "C:/path/to/your/ObsidianVault" --papers-root "Research/Papers" --default-language zh-CN
+python scripts/note_store.py show-config
+```
+
+[`examples/research-weaver.example.json`](examples/research-weaver.example.json) 仅用于展示字段结构：
 
 ```json
 {
-  "zotero_item_key": "ABCD1234",
-  "citekey": "authorTitle2025",
-  "doi": "10.xxxx/xxxxx",
-  "pdf_sha256": "...",
-  "title": "Paper Title"
+  "vault": "C:/path/to/your/ObsidianVault",
+  "papers_root": "Research/Papers",
+  "default_language": "zh-CN",
+  "note_naming": "slug-language",
+  "index_note": "Research/Paper Index.md"
 }
 ```
 
-身份契约用于防重复、稳定重命名、语言版本共存、BibTeX 对齐和已有笔记复用。文件名不能单独作为论文身份。
+`default_language` 可为 `zh-CN`、`en` 或 `both`。完整字段及安全规则见 [`references/configuration.md`](references/configuration.md)。不要把包含私人绝对路径的配置提交到 Git。
 
-### 3. 证据优先的单篇深读
+## 2. 如何使用
 
-- 提取原始章节和可核验文本；
-- 区分研究问题、任务定义和论文贡献；
-- 重建方法或分析机制；
-- 提取关键设置、公式、结果、负面结果和局限；
-- 规划图表位置，只在图像身份与质量可靠时落盘；
-- 建立“主张—证据—边界”关系；
-- PDF 或证据不足时失败关闭，不生成伪深度笔记。
+### 2.1 最短用法
 
-### 4. Obsidian 成品笔记
-
-默认 YAML：
-
-```yaml
----
-type: paper
-status: 已精读
-topic: 数据库
-tags:
-  - papers/数据库
-  - 科研
-  - 论文阅读
-aliases:
-  - Paper Short Name
-date: 2025
-doi: 10.xxxx/xxxxx
-citekey: authorTitle2025
-zotero_key: ABCD1234
-source_sha256: ...
----
-```
-
-默认正文骨架：核心信息、原文摘要翻译、创新点、一句话总结、研究问题、数据与任务定义、方法主线、关键结果、深度分析、局限、与我研究的关联、下一步研究建议、相关文献、我的笔记和引用。
-
-### 5. Vault-aware 保存
-
-Skill 不绑定固定 Vault。当前个人默认值：
+确保 Zotero Desktop 正在运行，并且目标论文已经保存在 Zotero 中且带有本地 PDF。随后在 Codex 中直接输入：
 
 ```text
-Vault：D:\Obsidian\AI
-论文笔记：02科研/01日常积累/01论文阅读
-理论概念：02科研/01日常积累/02理论与概念
-研究方法：02科研/01日常积累/03研究方法
-数据集工具：02科研/01日常积累/04数据集与工具
-研究灵感：02科研/01日常积累/05研究灵感
-项目组项目：02科研/02项目组项目
-个人论文：02科研/03个人论文
+$research-weaver 读取 Zotero 中这篇论文，生成中文研究笔记并保存到我的 Obsidian Vault：<DOI、标题或 Zotero Item Key>
 ```
 
-单篇论文采用“领域 / 论文目录 / 笔记与图片”布局，并保留程序管理的隐藏身份文件。
+你可以使用以下任一方式指定论文：
 
-### 6. 增量文献关联
+| 输入 | 适用情况 | 示例 |
+| --- | --- | --- |
+| DOI | 最稳定的公开论文标识 | `10.xxxx/xxxxx` |
+| Zotero Item Key | 已知本地条目的精确标识 | `ABCD1234` |
+| 论文标题 | 不知道 DOI 或 Item Key | 完整、尽量精确的标题 |
 
-从论文中提取研究问题、变量与情境、理论框架、方法设计和关键结论。新增论文后只更新新论文及真正受影响的旧论文。每条关联必须给出原因，不以不透明的相似度分数代替解释。
+如果标题对应多个 Zotero 条目，Skill 会停止并请你选择，不会自行猜测。
 
-### 7. 知识拆分建议
+### 2.2 常用示例
 
-识别可沉淀为理论与概念、研究方法、数据集与工具、研究假设和灵感的内容。默认只生成候选清单；用户确认后才创建或修改独立知识笔记，避免知识库碎片化。
+生成中文笔记：
 
-### 8. 项目关联
+```text
+$research-weaver 读取 Zotero 中 DOI 为 10.xxxx/xxxxx 的论文，生成 zh-CN 笔记并保存到我的 Vault。
+```
 
-分析论文与现有研究项目的关系并给出理由。默认只建议，不自动修改项目文件；确认后才加入项目文献清单、研究问题或实验设计文档。
+只解析一次证据，同时生成中英文笔记：
 
-### 9. Better BibTeX 与 LaTeX 桥接
+```text
+$research-weaver 读取 Zotero item key ABCD1234，只解析一次证据，生成 both 双语版本。
+```
 
-- citekey 以 Zotero / Better BibTeX 为准；
-- 检查目标 `.bib` 是否存在相应条目；
-- Obsidian 统一使用 `[@citekey]`；
-- LaTeX 输出 `\cite{citekey}` 等形式；
-- citekey 变化时报告潜在受影响文件；
-- 不自行发明或静默修改 citekey。
+从论文证据继续设计研究：
 
-### 10. 文献库级任务
+```text
+$research-weaver 基于这篇论文的证据，提取可复用设计、关键假设，设计一个可证伪的复现实验，并连接到已有论文笔记。
+```
 
-支持列出未精读文献、按主题检索、比较论文、识别结论冲突、生成文献综述、设计最小实验，以及生成带 citekey 的 Markdown 或 LaTeX 草稿。
+只分析、不保存：
 
-## 独特性
+```text
+$research-weaver 读取 DOI 为 10.xxxx/xxxxx 的论文并分析证据，但这次不要写入 Obsidian。
+```
 
-### 相比 zotero-obsidian-codex-workflow
+不写 `$research-weaver` 也可以直接说明任务，例如：“读取 Zotero 中这篇论文并保存为 Obsidian 双语研究笔记”。显式写出 Skill 名称通常更容易确保调用正确。
 
-- 不绑定 `Research vault`；
-- 不要求把 PDF 复制到工作目录；
-- 使用 Zotero 条目、DOI、citekey 和 PDF 哈希共同防重复；
-- 具备更严格的证据、图表和质量校验；
-- 采用增量关系更新，而不是机械重写全库；
-- 笔记直接适配用户现有 Vault、项目与 LaTeX 写作。
+首次写入前，Skill 会显示实际的 Vault 目录、论文子目录和输出语言。任务完成后，它会报告解析到的论文身份、生成的文件以及建立的文献关系。
 
-### 相比 DeepPaperNote
+`zotero_local.py` 只发出 GET 请求。`note_store.py` 会先执行 preflight，再以当前文件 SHA-256 作为覆盖授权，并使用同目录临时文件原子写入。
 
-- 不在“完成一篇笔记”处结束；
-- 维护 Zotero、Obsidian 和 BibTeX 三方身份一致性；
-- 支持阅读队列、全库检索和相关文献网络；
-- 支持知识拆分、项目关联和研究灵感；
-- 支持文献综述、实验设计和 LaTeX 写作桥接；
-- 负责笔记生成后的持续知识库维护。
+## Skill documentation map
 
-### 核心创新
+Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定性辅助脚本”组织：
 
-Research Weaver 的核心不是功能拼接，而是建立“证据—知识—项目—写作”闭环，并让科研结论可以从项目草稿反向追踪到 PDF 原文。
+| 文件 | 用途 |
+| --- | --- |
+| [`SKILL.md`](SKILL.md) | Skill 入口：定义触发范围、主工作流、停止条件和完成回报。 |
+| [`agents/openai.yaml`](agents/openai.yaml) | ChatGPT/Codex 界面元数据与默认提示。 |
+| [`references/configuration.md`](references/configuration.md) | 首次运行、私有配置、路径解析和单次覆盖规则。 |
+| [`references/evidence-contract.md`](references/evidence-contract.md) | 区分作者主张、论文证据、结论边界、读者推断与研究建议。 |
+| [`references/paper-types.md`](references/paper-types.md) | 针对实证、方法、综述、理论等论文类型调整证据标准。 |
+| [`references/note-architecture.md`](references/note-architecture.md) | 中文与英文研究笔记的 YAML 和正文结构。 |
+| [`references/output-languages.md`](references/output-languages.md) | `zh-CN`、`en`、`both` 的解析与双语生成规则。 |
+| [`references/research-reuse.md`](references/research-reuse.md) | 将证据转译为可复用设计、可检验假设、实验与后续问题。 |
+| [`references/library-weaving.md`](references/library-weaving.md) | 定义有类型、有理由、有研究用途的文献关系及安全回写规则。 |
+| [`scripts/zotero_local.py`](scripts/zotero_local.py) | 只读访问 Zotero Local API，解析论文身份、附件与本地 PDF 路径。 |
+| [`scripts/note_store.py`](scripts/note_store.py) | 校验配置、执行 preflight、防止身份冲突，并将笔记原子写入 Vault。 |
+| [`examples/research-weaver.example.json`](examples/research-weaver.example.json) | 不含个人路径的可移植配置示例。 |
 
-## 安全与质量原则
+## Output layout
 
-- Zotero 是原始文献、PDF 和批注的事实源；
-- Obsidian 是衍生知识和研究项目的事实源；
-- Better BibTeX 是 citekey 的事实源；
-- 写入 Zotero、覆盖笔记、移动文件和修改项目均需明确授权；
-- 用户已有高质量笔记时不自动覆盖；
-- PDF、身份或证据不足时停止；
-- 脚本负责确定性处理，模型负责论文理解与最终写作；
-- 每个阶段使用结构化产物连接，避免依赖不可检查的临时提示词。
+```text
+<Vault>/<papers_root>/
+└─ <paper-title>--<citekey>/
+   ├─ <paper-title>.zh-CN.md
+   ├─ <paper-title>.en.md
+   ├─ images/
+   └─ .research-weaver.json
+```
 
-## 第一阶段范围
+只创建本次请求的语言版本。`both` 共享同一论文身份与证据模型，但分别用目标语言撰写；英文不是中文成品的机械翻译。笔记结构见 [`references/note-architecture.md`](references/note-architecture.md)。
 
-首个可用版本只实现：
+## Safety and privacy
 
-1. 配置与环境检查；
-2. Zotero 本地论文及附件解析；
-3. PDF 证据提取；
-4. 单篇中文深度笔记；
-5. 安全写入当前 Obsidian Vault；
-6. YAML、citekey 和 Dataview 兼容；
-7. 增量相关文献更新；
-8. 论文阅读索引刷新。
+- Zotero 是论文身份、元数据、附件和 PDF 的事实源；访问为只读。
+- Obsidian 是派生研究资产的写入目标；写入限制在配置的 Vault 内。
+- 标题搜索有多个候选时停止，不自动猜选。
+- 只有摘要、PDF 不可读或身份冲突时停止，不生成伪精读。
+- 已有同语言笔记默认不覆盖；只有当前 SHA-256 精确匹配授权时才更新。
+- 仓库不包含个人路径、论文 PDF、Zotero 数据库或笔记内容。
 
-暂不实现自动写入 Zotero、系统综述、无确认批量精读、完整 LaTeX 项目同步、自动创建大量概念笔记，以及云端协作。
+## Troubleshooting
 
-## 后续设计步骤
+- **无法连接 Zotero**：保持 Zotero Desktop 运行，执行 `python scripts/zotero_local.py status`。
+- **出现多个候选条目**：改用 Zotero item key、DOI 或更精确标题。
+- **找不到 PDF**：在 Zotero 中确认条目有本地 PDF 附件且文件存在。
+- **配置被拒绝**：运行时 `vault` 必须是现有绝对路径；示例中的 `.` 只是可移植占位符。
+- **拒绝覆盖**：重新执行 preflight，审阅现有笔记，并显式提供它当前的 SHA-256。
+- **Windows 中文路径**：脚本以 UTF-8 和 `pathlib` 处理；不要手工转义 JSON 中的正斜杠路径。
 
-在开始实现前仍需完成并确认：内部架构与组件边界、阶段间 JSON 数据契约、配置与迁移规则、笔记身份与冲突处理、增量关联算法、失败恢复、测试策略，以及第一阶段实现计划。
+## Limitations
 
+- 当前版本面向单篇精读与增量关系编织，不是批量系统综述工具。
+- PDF 理解与研究判断由运行 Skill 的模型完成；辅助脚本不自带 OCR 或 PDF 解析引擎。
+- 不自动导入新论文、不写回 Zotero、不创建 Zotero 标签/Collection。
+- 不自动重写整个 Obsidian 文献库，也不替代投稿前的人工证据核验。
+
+## 致谢与灵感
+
+Research Weaver 是独立实现，但它的设计建立在以下开源项目和工具所提供的经验之上。
+
+### 直接设计灵感
+
+- [DeepPaperNote](https://github.com/917Dhj/DeepPaperNote) — 启发了单篇论文深度阅读、证据优先和长期可用的 Obsidian 笔记设计。
+- [Zotero + Obsidian + Codex Literature Workflow](https://github.com/guyumengyue/zotero-obsidian-codex-workflow) — 启发了 Zotero、Obsidian 与 Codex 的环境协同、初始化和日常文献工作流。
+
+Research Weaver 在此基础上聚焦于自己的核心方向：把论文证据继续转译为可质疑假设、可检验实验、有语义的文献关系与引用写作。上述项目的版权与许可证分别归其原作者所有。
+
+### 基础生态
+
+- [Zotero](https://github.com/zotero/zotero) — 文献身份、元数据与本地 PDF 的事实源。
+- [Better BibTeX for Zotero](https://github.com/retorquere/zotero-better-bibtex) — BibTeX、Citation Key 与写作工作流生态。
+- [Obsidian Releases](https://github.com/obsidianmd/obsidian-releases) — 研究笔记与长期知识库的承载环境。
+- [OpenAI Codex](https://github.com/openai/codex) — 执行 Research Weaver Skill 的智能代理环境。
+
+## Contributing
+
+感谢改进 Research Weaver。请保持项目的核心边界：Zotero 只读、PDF 原位读取、Obsidian 安全写入、证据与推断分离。
+
+### Development workflow
+
+1. 从最新分支创建小范围分支。
+2. 使用 Python 3.10+ 标准库实现最小、可回滚的变更。
+3. 在 Pull Request 中说明安全边界、验证证据和兼容性影响。
+
+### Contract changes
+
+更改证据标签、笔记架构、语言布局、关系类型、身份规则或覆盖策略时，同时更新相应的 `references/` 文档和契约代码。不要在 `SKILL.md` 重复完整规则；保持渐进式披露和所有 reference 的直接链接。
+
+### Privacy and fixtures
+
+不要提交真实 Vault 路径、用户名、Zotero 数据库、受版权保护的 PDF、私人批注或 API 凭据。开发样本应使用临时目录、合成元数据和本地假 HTTP server。
+
+### Scope
+
+欢迎修复 Windows/macOS/Linux 路径兼容、Zotero Local API 读取、安全写入、证据契约、语言版本和文献关系问题。引入网络服务、MCP、第三方依赖、写回 Zotero 或批量修改 Vault 的提案，应先解释必要性和可撤销方案。
+
+许可证见 [`LICENSE`](LICENSE)。
