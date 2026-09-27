@@ -85,11 +85,15 @@ class ReadmeExamplesTests(unittest.TestCase):
 
     def test_readme_opens_with_a_direct_value_proposition_and_example_slot(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        opening = "\n".join(readme.splitlines()[:35])
-        self.assertIn("不是把论文变成摘要", opening)
-        self.assertIn("为什么选择", opening)
-        self.assertIn("## 示例", opening)
-        self.assertIn("TODO: Add a real before-and-after example", opening)
+        opening = "\n".join(readme.splitlines()[:45])
+        self.assertIn('<div align="center">', opening)
+        self.assertIn("把 Zotero 里的论文", opening)
+        self.assertIn("值得长期保留的 Obsidian 笔记", opening)
+        self.assertIn("assets/research-weaver-hero.jpeg", opening)
+        self.assertIn("Research Weaver 是一个论文笔记生成 Skill", opening)
+        self.assertIn("## 示例", readme)
+        self.assertIn("TODO: Add a real before-and-after example", readme)
+        self.assertTrue((ROOT / "assets" / "research-weaver-hero.jpeg").is_file())
 
     def test_readme_credits_verified_inspirations_and_ecosystem(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -104,7 +108,8 @@ class ReadmeExamplesTests(unittest.TestCase):
         ):
             self.assertIn(url, readme)
         self.assertNotIn("github.com/OWNER/research-weaver", readme)
-        self.assertIn("github.com/jvrczt8hvt-byte/Research-Weaver", readme)
+        self.assertIn("github.com/LL-lmh/Research-Weaver", readme)
+        self.assertNotIn("github.com/jvrczt8hvt-byte/Research-Weaver", readme)
 
 
 if __name__ == "__main__":

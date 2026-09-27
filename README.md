@@ -1,16 +1,29 @@
+<div align="center">
+
 # Research Weaver
 
-**不是把论文变成摘要，而是把论文证据变成下一步研究。**
+**把 Zotero 里的论文，变成一篇有证据、能复用、值得长期保留的 Obsidian 笔记。**
 
-Research Weaver 从 Zotero 原位读取论文，在 Obsidian 中留下可追溯、可质疑、可继续用于实验与写作的研究资产。
+[![status](https://img.shields.io/badge/status-stable-16a34a)](#)
+[![license](https://img.shields.io/badge/license-MIT-c9a227)](LICENSE)
+[![agent](https://img.shields.io/badge/agent-Codex-7c3aed)](agents/openai.yaml)
+[![source](https://img.shields.io/badge/source-Zotero-cc2936)](https://github.com/zotero/zotero)
+[![output](https://img.shields.io/badge/output-Obsidian-6f42c1)](https://github.com/obsidianmd/obsidian-releases)
+[![language](https://img.shields.io/badge/notes-中文%20%7C%20English-0f766e)](references/output-languages.md)
+
+</div>
+
+[![Research Weaver：从论文到研究笔记](assets/research-weaver-hero.jpeg)](assets/research-weaver-hero.jpeg)
+
+Research Weaver 是一个论文笔记生成 Skill：从 Zotero 原位读取论文 PDF，在 Obsidian 中生成结构清晰、证据可追溯的中文、英文或双语笔记。
 
 ## Why Research Weaver
 
-**为什么选择它？**
+**为什么选择它？** 因为一篇好笔记不只要“总结完整”，还要能回到证据，并能继续服务研究。
 
 - 原始 PDF 留在 Zotero，不重复下载、不复制进 Vault；
 - 论文主张、证据边界和你的推断不会混在一起；
-- 笔记不会停在总结，而会继续形成假设、实验和文献关系。
+- 先生成一篇可长期保留的论文笔记，再从中形成假设、实验和文献关系。
 
 ## 示例
 
@@ -55,13 +68,13 @@ Research Weaver 是 MCP-free Skill，不需要 Zotero MCP、Obsidian MCP 或其�
 Windows PowerShell：
 
 ```powershell
-git clone https://github.com/jvrczt8hvt-byte/Research-Weaver.git "$env:CODEX_HOME\skills\research-weaver"
+git clone https://github.com/LL-lmh/Research-Weaver.git "$env:CODEX_HOME\skills\research-weaver"
 ```
 
 macOS / Linux：
 
 ```bash
-git clone https://github.com/jvrczt8hvt-byte/Research-Weaver.git "$CODEX_HOME/skills/research-weaver"
+git clone https://github.com/LL-lmh/Research-Weaver.git "$CODEX_HOME/skills/research-weaver"
 ```
 
 如果 `CODEX_HOME` 尚未设置，Codex 的默认目录通常是用户主目录下的 `.codex`，因此目标目录应为 `.codex/skills/research-weaver`。
