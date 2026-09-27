@@ -248,7 +248,6 @@ Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定
 - **找不到 PDF**：在 Zotero 中确认条目有本地 PDF 附件且文件存在。
 - **配置被拒绝**：运行时 `vault` 必须是现有绝对路径；示例中的 `.` 只是可移植占位符。
 - **拒绝覆盖**：重新执行 preflight，审阅现有笔记，并显式提供它当前的 SHA-256。
-- **Windows 中文路径**：脚本以 UTF-8 和 `pathlib` 处理；不要手工转义 JSON 中的正斜杠路径。
 
 ## Limitations
 
@@ -259,14 +258,12 @@ Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定
 
 ## 致谢与灵感
 
-Research Weaver 是独立实现，但它的设计建立在以下开源项目和工具所提供的经验之上。
+Research Weaver特别感谢以下项目和工具所提供的经验/灵感之上！
 
 ### 直接设计灵感
 
 - [DeepPaperNote](https://github.com/917Dhj/DeepPaperNote) — 启发了单篇论文深度阅读、证据优先和长期可用的 Obsidian 笔记设计。
 - [Zotero + Obsidian + Codex Literature Workflow](https://github.com/guyumengyue/zotero-obsidian-codex-workflow) — 启发了 Zotero、Obsidian 与 Codex 的环境协同、初始化和日常文献工作流。
-
-Research Weaver 在此基础上聚焦于自己的核心方向：把论文证据继续转译为可质疑假设、可检验实验、有语义的文献关系与引用写作。上述项目的版权与许可证分别归其原作者所有。
 
 ### 基础生态
 
@@ -277,24 +274,7 @@ Research Weaver 在此基础上聚焦于自己的核心方向：把论文证据�
 
 ## Contributing
 
-感谢改进 Research Weaver。请保持项目的核心边界：Zotero 只读、PDF 原位读取、Obsidian 安全写入、证据与推断分离。
+感谢改进 Research Weaver。
 
-### Development workflow
-
-1. 从最新分支创建小范围分支。
-2. 使用 Python 3.10+ 标准库实现最小、可回滚的变更。
-3. 在 Pull Request 中说明安全边界、验证证据和兼容性影响。
-
-### Contract changes
-
-更改证据标签、笔记架构、语言布局、关系类型、身份规则或覆盖策略时，同时更新相应的 `references/` 文档和契约代码。不要在 `SKILL.md` 重复完整规则；保持渐进式披露和所有 reference 的直接链接。
-
-### Privacy and fixtures
-
-不要提交真实 Vault 路径、用户名、Zotero 数据库、受版权保护的 PDF、私人批注或 API 凭据。开发样本应使用临时目录、合成元数据和本地假 HTTP server。
-
-### Scope
-
-欢迎修复 Windows/macOS/Linux 路径兼容、Zotero Local API 读取、安全写入、证据契约、语言版本和文献关系问题。引入网络服务、MCP、第三方依赖、写回 Zotero 或批量修改 Vault 的提案，应先解释必要性和可撤销方案。
 
 许可证见 [`LICENSE`](LICENSE)。
