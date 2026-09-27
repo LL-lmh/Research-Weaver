@@ -105,6 +105,27 @@ class ReadmeExamplesTests(unittest.TestCase):
         self.assertIn("TODO: Add a real before-and-after example", readme)
         self.assertTrue((ROOT / "assets" / "research-weaver-hero.jpeg").is_file())
 
+    def test_why_section_explains_note_architecture_and_incremental_growth(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        why = readme.split("## Why Research Weaver", 1)[1].split("## 示例", 1)[0]
+
+        for concept in (
+            "论文定位",
+            "问题与核心贡献",
+            "方法或论证主线",
+            "证据与关键结果",
+            "批判性阅读",
+            "研究连接",
+            "引用",
+            "稳定核心",
+            "生长层",
+        ):
+            self.assertIn(concept, why)
+
+        self.assertIn("references/note-architecture.md", why)
+        self.assertIn("references/library-weaving.md", why)
+        self.assertIn("不会在后台自动重写", why)
+
     def test_readme_credits_verified_inspirations_and_ecosystem(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("## 致谢与灵感", readme)
