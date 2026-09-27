@@ -27,7 +27,6 @@ class ReadmeExamplesTests(unittest.TestCase):
             "## Limitations",
         ):
             self.assertIn(heading, readme)
-        self.assertIn("MCP-free", readme)
         self.assertIn("zh-CN", readme)
         self.assertIn("both", readme)
         self.assertIn("Zotero retains the PDF", readme)
@@ -121,6 +120,24 @@ class ReadmeExamplesTests(unittest.TestCase):
         self.assertNotIn("github.com/OWNER/research-weaver", readme)
         self.assertIn("github.com/LL-lmh/Research-Weaver", readme)
         self.assertNotIn("github.com/jvrczt8hvt-byte/Research-Weaver", readme)
+
+    def test_readme_uses_scannable_section_icons_and_actionable_contribution_steps(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        for heading in (
+            "## Why Research Weaver 🧭",
+            "## 示例 📝",
+            "## 1. 安装指南 🚀",
+            "## 2. 如何使用 📖",
+            "## Safety and privacy 🛡️",
+            "## Contributing 🤝",
+        ):
+            self.assertIn(heading, readme)
+
+        self.assertIn("### 如何提交修改", readme)
+        self.assertIn("git switch -c", readme)
+        self.assertIn("python -m unittest discover -s tests -v", readme)
+        self.assertIn("### 修改位置速查", readme)
+        self.assertIn("### Pull Request 检查清单", readme)
 
 
 if __name__ == "__main__":

@@ -17,7 +17,7 @@
 
 Research Weaver 是一个论文笔记生成 Skill：从 Zotero 原位读取论文 PDF，在 Obsidian 中生成结构清晰、证据可追溯的中文、英文或双语笔记。
 
-## Why Research Weaver
+## Why Research Weaver 🧭
 
 **为什么选择它？** 因为一篇好笔记不只要“总结完整”，还要能回到证据，并能继续服务研究。
 
@@ -25,7 +25,7 @@ Research Weaver 是一个论文笔记生成 Skill：从 Zotero 原位读取论�
 - 论文主张、证据边界和你的推断不会混在一起；
 - 先生成一篇可长期保留的论文笔记，再从中形成假设、实验和文献关系。
 
-## 示例
+## 示例 📝
 
 <!-- TODO: Add a real before-and-after example here. -->
 
@@ -46,7 +46,7 @@ Research Weaver 通过三个契约实现这条路径：
 
 Zotero retains the PDF. Obsidian 只保存派生的 Markdown 笔记与关系；Skill 不把完整 PDF 复制进 Vault。
 
-## 1. 安装指南
+## 1. 安装指南 🚀
 
 ### 1.1 环境要求
 
@@ -148,7 +148,7 @@ python scripts/note_store.py show-config
 
 `default_language` 可为 `zh-CN`、`en` 或 `both`。完整字段及安全规则见 [`references/configuration.md`](references/configuration.md)。不要把包含私人绝对路径的配置提交到 Git。
 
-## 2. 如何使用
+## 2. 如何使用 📖
 
 ### 2.1 最短用法
 
@@ -200,7 +200,7 @@ $research-weaver 读取 DOI 为 10.xxxx/xxxxx 的论文并分析证据，但这�
 
 `zotero_local.py` 只发出 GET 请求。`note_store.py` 会先执行 preflight，再以当前文件 SHA-256 作为覆盖授权，并使用同目录临时文件原子写入。
 
-## Skill documentation map
+## Skill documentation map 🗺️
 
 Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定性辅助脚本”组织：
 
@@ -219,7 +219,7 @@ Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定
 | [`scripts/note_store.py`](scripts/note_store.py) | 校验配置、执行 preflight、防止身份冲突，并将笔记原子写入 Vault。 |
 | [`examples/research-weaver.example.json`](examples/research-weaver.example.json) | 不含个人路径的可移植配置示例。 |
 
-## Output layout
+## Output layout 📁
 
 ```text
 <Vault>/<papers_root>/
@@ -232,7 +232,7 @@ Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定
 
 只创建本次请求的语言版本。`both` 共享同一论文身份与证据模型，但分别用目标语言撰写；英文不是中文成品的机械翻译。笔记结构见 [`references/note-architecture.md`](references/note-architecture.md)。
 
-## Safety and privacy
+## Safety and privacy 🛡️
 
 - Zotero 是论文身份、元数据、附件和 PDF 的事实源；访问为只读。
 - Obsidian 是派生研究资产的写入目标；写入限制在配置的 Vault 内。
@@ -241,7 +241,7 @@ Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定
 - 已有同语言笔记默认不覆盖；只有当前 SHA-256 精确匹配授权时才更新。
 - 仓库不包含个人路径、论文 PDF、Zotero 数据库或笔记内容。
 
-## Troubleshooting
+## Troubleshooting 🛠️
 
 - **无法连接 Zotero**：保持 Zotero Desktop 运行，执行 `python scripts/zotero_local.py status`。
 - **出现多个候选条目**：改用 Zotero item key、DOI 或更精确标题。
@@ -249,14 +249,14 @@ Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定
 - **配置被拒绝**：运行时 `vault` 必须是现有绝对路径；示例中的 `.` 只是可移植占位符。
 - **拒绝覆盖**：重新执行 preflight，审阅现有笔记，并显式提供它当前的 SHA-256。
 
-## Limitations
+## Limitations ⚠️
 
 - 当前版本面向单篇精读与增量关系编织，不是批量系统综述工具。
 - PDF 理解与研究判断由运行 Skill 的模型完成；辅助脚本不自带 OCR 或 PDF 解析引擎。
 - 不自动导入新论文、不写回 Zotero、不创建 Zotero 标签/Collection。
 - 不自动重写整个 Obsidian 文献库，也不替代投稿前的人工证据核验。
 
-## 致谢与灵感
+## 致谢与灵感 🙏
 
 Research Weaver特别感谢以下项目和工具所提供的经验/灵感之上！
 
@@ -272,9 +272,45 @@ Research Weaver特别感谢以下项目和工具所提供的经验/灵感之上�
 - [Obsidian Releases](https://github.com/obsidianmd/obsidian-releases) — 研究笔记与长期知识库的承载环境。
 - [OpenAI Codex](https://github.com/openai/codex) — 执行 Research Weaver Skill 的智能代理环境。
 
-## Contributing
+## Contributing 🤝
 
 感谢改进 Research Weaver。
 
+
+### 如何提交修改
+
+1. Fork 本仓库并克隆自己的副本。
+2. 从最新的 `main` 创建一个只解决单一问题的分支：
+
+   ```bash
+   git switch -c fix/short-description
+   ```
+
+3. 修改对应文件，并为行为变化补充或更新测试。
+4. 在仓库根目录运行完整测试：
+
+   ```bash
+   python -m unittest discover -s tests -v
+   ```
+
+5. 提交并推送分支，然后向 `LL-lmh/Research-Weaver` 的 `main` 分支发起 Pull Request。请在 PR 中说明改了什么、为什么要改、如何验证，以及是否影响现有笔记或配置。
+
+### 修改位置速查
+
+| 想要修改的内容 | 优先检查的文件 |
+| --- | --- |
+| 安装、使用示例或项目介绍 | `README.md` |
+| Skill 触发范围、主流程或停止条件 | `SKILL.md` |
+| 证据、笔记、语言、研究转译或文献关系规则 | 对应的 `references/*.md` |
+| Zotero 读取或 Obsidian 安全写入 | `scripts/` 及对应的 `tests/` |
+| Codex 界面名称、简介或默认提示 | `agents/openai.yaml` |
+
+### Pull Request 检查清单
+
+- [ ] 原有 Zotero 只读、PDF 原位读取和 Vault 安全写入边界仍然成立；
+- [ ] 行为变化已有对应测试，且完整测试通过；
+- [ ] 相关 `README.md`、`SKILL.md` 与 `references/` 已同步更新；
+- [ ] 没有提交真实论文、私人路径、凭据或个人笔记；
+- [ ] PR 描述包含验证命令、结果及兼容性影响。
 
 许可证见 [`LICENSE`](LICENSE)。
