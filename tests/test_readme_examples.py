@@ -32,6 +32,17 @@ class ReadmeExamplesTests(unittest.TestCase):
         self.assertIn("both", readme)
         self.assertIn("Zotero retains the PDF", readme)
 
+    def test_readme_recommends_verified_skills_cli_and_keeps_manual_fallback(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("推荐：使用 Skills CLI", readme)
+        self.assertIn(
+            "npx skills add LL-lmh/Research-Weaver --global --agent codex --skill research-weaver",
+            readme,
+        )
+        self.assertIn("备用：手动安装到 Codex", readme)
+        self.assertIn('${CODEX_HOME:-$HOME/.codex}/skills/research-weaver', readme)
+        self.assertIn("尚未打包为 Claude Code 插件", readme)
+
     def test_readme_does_not_publish_author_paths(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         for private_fragment in ("15354", "D:\\Obsidian", "Desktop\\vibecoding"):

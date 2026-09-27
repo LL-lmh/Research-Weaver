@@ -54,6 +54,7 @@ Zotero retains the PDF. Obsidian 只保存派生的 Markdown 笔记与关系；S
 
 - 支持本地 Skills 与文件访问的 Codex；
 - Python 3.10 或更高版本；如果现有 `python --version` 已满足要求，直接使用当前环境，无需另装。本仓库当前已在 Python 3.12.7（Anaconda）验证；
+- 推荐安装方式需要 Node.js 与 npm，以便运行 `npx skills`；不使用 Node.js 时可选择后面的手动安装；
 - 正在运行且允许本地 API 的 Zotero Desktop；
 - 至少一个带有可读本地 PDF 附件的 Zotero 条目；
 - 一个已经创建好的 Obsidian Vault；
@@ -63,21 +64,40 @@ Research Weaver 是 MCP-free Skill，不需要 Zotero MCP、Obsidian MCP 或其�
 
 ### 1.2 安装 Skill
 
-将仓库克隆到 Codex 的个人 Skills 目录。
+#### 推荐：使用 Skills CLI
+
+这是最接近 DeepPaperNote 等公开 Agent Skill 的安装方式。它会从 GitHub 识别 `research-weaver`，并安装到用户级 Codex Skills 目录：
+
+```powershell
+npx skills add LL-lmh/Research-Weaver --global --agent codex --skill research-weaver
+```
+
+如果希望由 CLI 交互选择安装范围和 Agent，也可以使用较短的命令：
+
+```powershell
+npx skills add LL-lmh/Research-Weaver
+```
+
+注意：不带 `--global` 时，在项目目录中运行可能安装为项目级 Skill。对日常跨项目使用，推荐保留上面的 `--global --agent codex`。
+
+Research Weaver 当前是独立 Agent Skill，尚未打包为 Claude Code 插件，因此不要使用 `claude plugin marketplace add` 或 `claude plugin install` 命令。
+
+#### 备用：手动安装到 Codex
+
+不使用 Skills CLI 时，可以直接克隆到 Codex 的个人 Skills 目录。
 
 Windows PowerShell：
 
 ```powershell
-git clone https://github.com/LL-lmh/Research-Weaver.git "$env:CODEX_HOME\skills\research-weaver"
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME ".codex" }
+git clone https://github.com/LL-lmh/Research-Weaver.git (Join-Path $codexHome "skills\research-weaver")
 ```
 
 macOS / Linux：
 
 ```bash
-git clone https://github.com/LL-lmh/Research-Weaver.git "$CODEX_HOME/skills/research-weaver"
+git clone https://github.com/LL-lmh/Research-Weaver.git "${CODEX_HOME:-$HOME/.codex}/skills/research-weaver"
 ```
-
-如果 `CODEX_HOME` 尚未设置，Codex 的默认目录通常是用户主目录下的 `.codex`，因此目标目录应为 `.codex/skills/research-weaver`。
 
 安装完成后，重新启动 Codex 或新建一个任务，让 Codex 重新发现 Skill。
 
