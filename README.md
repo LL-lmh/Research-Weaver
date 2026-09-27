@@ -53,7 +53,7 @@ Zotero retains the PDF. Obsidian 只保存派生的 Markdown 笔记与关系；S
 开始前请准备：
 
 - 支持本地 Skills 与文件访问的 Codex；
-- Python 3.10 或更高版本；辅助脚本仅使用标准库；
+- Python 3.10 或更高版本；如果现有 `python --version` 已满足要求，直接使用当前环境，无需另装。本仓库当前已在 Python 3.12.7（Anaconda）验证；
 - 正在运行且允许本地 API 的 Zotero Desktop；
 - 至少一个带有可读本地 PDF 附件的 Zotero 条目；
 - 一个已经创建好的 Obsidian Vault；
