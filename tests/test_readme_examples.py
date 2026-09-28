@@ -96,17 +96,17 @@ class ReadmeExamplesTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn("usage:", result.stdout.lower())
 
-    def test_readme_opens_with_a_direct_value_proposition_and_example_slot(self):
+    def test_readme_opens_with_a_direct_value_proposition_without_duplicate_hero(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         opening = "\n".join(readme.splitlines()[:45])
         self.assertIn('<div align="center">', opening)
         self.assertIn("把 Zotero 里的论文", opening)
         self.assertIn("值得长期保留的 Obsidian 笔记", opening)
-        self.assertIn("assets/research-weaver-hero.jpeg", opening)
         self.assertIn("Research Weaver 是一个论文笔记生成 Skill", opening)
         self.assertIn("## 示例", readme)
         self.assertIn("TODO: Add a real before-and-after example", readme)
-        self.assertTrue((ROOT / "assets" / "research-weaver-hero.jpeg").is_file())
+        self.assertNotIn("assets/research-weaver-hero.jpeg", readme)
+        self.assertFalse((ROOT / "assets" / "research-weaver-hero.jpeg").exists())
 
     def test_why_section_explains_note_architecture_and_update_steps(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -130,27 +130,23 @@ class ReadmeExamplesTests(unittest.TestCase):
 
         self.assertIn("references/note-architecture.md", why)
         self.assertIn("references/library-weaving.md", why)
-        self.assertIn("会自动更新", why)
-        self.assertIn("不是后台自动运行", why)
+        self.assertIn("自动更新", why)
+        self.assertIn("不是后台定时任务", why)
         self.assertIn("不需要额外配置", why)
         self.assertIn("自动检查已有论文笔记", why)
-        self.assertIn("Obsidian 的反向链接", why)
-        self.assertIn("不要连接已有笔记", why)
-        self.assertIn("首次只配置一次", why)
-        self.assertIn("以后不需要重复配置", why)
-        self.assertIn("你需要做什么", why)
-        self.assertIn("什么时候需要重新配置", why)
+        self.assertIn("Obsidian 反向链接", why)
+        self.assertIn("本次不要连接已有笔记", why)
+        self.assertIn("1.4 首次配置", why)
+        self.assertNotIn("#### 首次只配置一次", why)
+        self.assertNotIn("#### 你需要做什么", why)
+        self.assertNotIn("#### 什么时候需要重新配置", why)
 
-    def test_readme_credits_verified_inspirations_and_ecosystem(self):
+    def test_readme_credits_verified_direct_inspirations(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("## 致谢与灵感", readme)
         for url in (
             "https://github.com/917Dhj/DeepPaperNote",
             "https://github.com/guyumengyue/zotero-obsidian-codex-workflow",
-            "https://github.com/zotero/zotero",
-            "https://github.com/retorquere/zotero-better-bibtex",
-            "https://github.com/obsidianmd/obsidian-releases",
-            "https://github.com/openai/codex",
         ):
             self.assertIn(url, readme)
         self.assertNotIn("github.com/OWNER/research-weaver", readme)
@@ -173,7 +169,7 @@ class ReadmeExamplesTests(unittest.TestCase):
         self.assertIn("git switch -c", readme)
         self.assertIn("python -m unittest discover -s tests -v", readme)
         self.assertIn("### 修改位置速查", readme)
-        self.assertIn("### Pull Request 检查清单", readme)
+        self.assertNotIn("### Pull Request 检查清单", readme)
 
 
 if __name__ == "__main__":

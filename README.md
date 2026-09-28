@@ -13,8 +13,6 @@
 
 </div>
 
-[![Research Weaver：从论文到研究笔记](assets/research-weaver-hero.jpeg)](assets/research-weaver-hero.jpeg)
-
 Research Weaver 是一个论文笔记生成 Skill：从 Zotero 原位读取论文 PDF，在 Obsidian 中生成结构清晰、证据可追溯的中文、英文或双语笔记。
 
 ## Why Research Weaver 🧭
@@ -52,49 +50,13 @@ Research Weaver 生成的不是按章节复述的摘要，而是一份可以继�
 
 作者主张、论文证据、结论边界、读者推断和研究建议分别标识。重要结果优先保留页码、图表或章节锚点；证据不足时明确留下缺口，不用流畅文字填补。中文与英文版本共享同一论文身份和证据模型，但分别以目标语言组织，而不是机械互译。完整模板见 [`references/note-architecture.md`](references/note-architecture.md)。
 
-### 如何更新笔记：阅读新论文时自动更新
+### 自动更新
 
-> **直接答案：Research Weaver 会自动更新，但不是后台自动运行。** 每当你让它读取并保存一篇新论文时，它会在同一次任务中自动检查已有论文笔记、验证文献关系，并把可信关系写入新笔记。它不会定时扫描 Zotero，也不会在你没有发起任务时自行运行。
+保存一篇新论文时，Research Weaver 会自动检查已有论文笔记、验证文献关系，并把可信连接写入新笔记。**不需要额外配置，也不需要再发送“更新关系”的命令。**
 
-#### 首次只配置一次
+它不是后台定时任务：只有你让 Skill 阅读并保存论文时才运行。为保护人工内容，它不会自动改写旧笔记；旧笔记可通过 **Obsidian 反向链接**看到来自新笔记的连接。
 
-第一次保存论文笔记时，Skill 会询问并保存三个设置：
-
-1. Obsidian Vault 的绝对路径；
-2. Vault 内用于存放论文笔记的目录；
-3. 默认输出语言：`zh-CN`、`en` 或 `both`。
-
-配置保存在本机的私有配置文件中。**以后不需要重复配置**，自动关系更新也**不需要额外配置**：每次运行时，Skill 会读取这些设置，并在操作前显示本次实际使用的保存目录和语言。
-
-#### 你需要做什么
-
-1. 保持 Zotero Desktop 运行，并确保论文带有本地 PDF；
-2. 像平常一样告诉 Codex 要读取并保存哪篇新论文；
-3. 等待 Skill 生成笔记并报告自动建立的关系。
-
-你不必额外说“更新关系”。普通的阅读指令就会触发自动连接：
-
-```text
-$research-weaver 读取 DOI 为 10.xxxx/xxxxx 的论文，生成中文笔记并保存到我的 Obsidian。
-```
-
-本次任务中，Skill 会自动检查已有论文笔记，并按证据添加 `supports`、`challenges`、`extends`、`alternative_method` 等关系。关系写在新笔记中；原有笔记不用被自动改写，因为 **Obsidian 的反向链接**已经能从旧笔记看到新连接。
-
-如果某次不希望连接已有笔记，加入一句“不要连接已有笔记”即可：
-
-```text
-$research-weaver 读取 Zotero item key ABCD1234 并生成笔记；本次不要连接已有笔记。
-```
-
-自动更新只写入本次新建的笔记，不会重写旧笔记或整个 Vault。如果你明确要求修改一篇已有笔记，Skill 才会对该文件执行 preflight、读取当前哈希并请求写入授权；你不需要手动计算哈希。完整规则见 [`references/library-weaving.md`](references/library-weaving.md)。
-
-#### 什么时候需要重新配置
-
-只有当你想永久更换 **Vault 路径、论文笔记目录或默认语言** 时才需要重新配置。临时指定另一种语言或目录只影响当前任务，不会改变默认值。
-
-```text
-$research-weaver 将默认 Obsidian Vault 改为 <新路径>，论文笔记目录改为 <新目录>，默认语言改为 both。
-```
+如本次不需要自动连接，只需在指令中加入“本次不要连接已有笔记”。首次 Vault、论文目录和默认语言设置见 [1.4 首次配置](#14-首次配置)，完整连接规则见 [`references/library-weaving.md`](references/library-weaving.md)。
 
 ## 示例 📝
 
