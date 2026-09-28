@@ -30,6 +30,6 @@ Draft with the [note architecture](references/note-architecture.md). Build one c
 
 ## Weave and save
 
-Apply the [weaving contract](references/library-weaving.md) only after the note is evidence-grounded. Add verified typed relations with a reason and research use. Require a separate preflight and hash authorization before modifying any existing counterpart note.
+Apply the [weaving contract](references/library-weaving.md) only after the note is evidence-grounded. For every new paper-note task, automatically search plausible existing notes and add verified typed relations, each with a reason and research use, to the new note unless the user opts out. Do not ask for a second weaving prompt or modify counterpart notes during this automatic pass; Obsidian backlinks expose the reverse connection. Modify an existing counterpart only when the user explicitly requests it and after a separate preflight and hash authorization.
 
 Save each requested language atomically with `scripts/note_store.py save`. Report the paper identity, language, citation key, saved path, relations added, evidence gaps, and warnings. Never claim completion before the save succeeds.

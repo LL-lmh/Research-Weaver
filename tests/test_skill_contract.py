@@ -112,6 +112,29 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("research_use", weaving)
         self.assertIn("hash-authorized preflight", weaving)
 
+    def test_new_paper_tasks_automatically_weave_without_rewriting_counterparts(self):
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        weaving = (ROOT / "references" / "library-weaving.md").read_text(encoding="utf-8")
+        configuration = (ROOT / "references" / "configuration.md").read_text(
+            encoding="utf-8"
+        )
+
+        for phrase in (
+            "For every new paper-note task",
+            "unless the user opts out",
+            "Obsidian backlinks",
+        ):
+            self.assertIn(phrase, skill)
+
+        for phrase in (
+            "Automatic pass for a new paper",
+            "Do not modify counterpart notes",
+            "one-run opt-out",
+        ):
+            self.assertIn(phrase, weaving)
+
+        self.assertIn("requires no additional configuration", configuration)
+
     def test_language_contract_is_not_translation_first(self):
         languages = (ROOT / "references" / "output-languages.md").read_text(encoding="utf-8")
         self.assertIn("zh-CN", languages)

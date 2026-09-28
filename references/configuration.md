@@ -22,6 +22,10 @@ python scripts/note_store.py configure --vault "C:/path/to/Vault" --papers-root 
 
 Do not create the Vault, select an unrelated folder, or store a personal path in the Skill repository. On later runs, execute `show-config`, display the resolved destination and language, and continue unless the user requests a change. A one-run path or language override does not change saved defaults.
 
+## Automatic weaving
+
+Automatic relation discovery for each new paper-note task requires no additional configuration. Once the ordinary Vault settings exist, inspect plausible notes and write verified relations into the new note by default. The user can disable this for one task by asking not to connect existing notes; the opt-out does not change future runs.
+
 ## Fields
 
 Required fields:

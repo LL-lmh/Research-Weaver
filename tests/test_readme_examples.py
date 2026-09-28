@@ -122,12 +122,16 @@ class ReadmeExamplesTests(unittest.TestCase):
 
         self.assertIn("references/note-architecture.md", why)
         self.assertIn("references/library-weaving.md", why)
-        self.assertIn("不会自动更新", why)
+        self.assertIn("会自动更新", why)
+        self.assertIn("不是后台自动运行", why)
+        self.assertIn("不需要额外配置", why)
+        self.assertIn("自动检查已有论文笔记", why)
+        self.assertIn("Obsidian 的反向链接", why)
+        self.assertIn("不要连接已有笔记", why)
         self.assertIn("首次只配置一次", why)
         self.assertIn("以后不需要重复配置", why)
         self.assertIn("你需要做什么", why)
         self.assertIn("什么时候需要重新配置", why)
-        self.assertIn("$research-weaver 更新", why)
 
     def test_readme_credits_verified_inspirations_and_ecosystem(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
