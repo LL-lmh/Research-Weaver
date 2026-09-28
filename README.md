@@ -272,10 +272,11 @@ Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定
 
 ## 致谢与灵感 🙏
 
-Research Weaver特别感谢以下项目和工具所提供的经验/灵感：
+Research Weaver工作受到以下项目对于论文、笔记的思考，特别感谢以下项目和工具所提供的经验/灵感：
 
-- [DeepPaperNote](https://github.com/917Dhj/DeepPaperNote) — 启发了单篇论文深度阅读、证据优先和长期可用的 Obsidian 笔记设计。
-- [Zotero + Obsidian + Codex Literature Workflow](https://github.com/guyumengyue/zotero-obsidian-codex-workflow) — 启发了 Zotero、Obsidian 与 Codex 的环境协同、初始化和日常文献工作流。
+- [DeepPaperNote](https://github.com/917Dhj/DeepPaperNote) — 关于单篇论文深度阅读、证据优先和长期可用的 Obsidian 笔记设计。
+- [Zotero + Obsidian + Codex Literature Workflow](https://github.com/guyumengyue/zotero-obsidian-codex-workflow) — 如何将Zotero、Obsidian 与 Codex 的环境协同、初始化和日常文献工作流。
+- [FastPaperRead](https://github.com/JfanLiu/FastPaperRead.git) — 对于代码、实验类文章，如何对其进行思考挖掘，以及笔记如何整理更为美观。
 
 ## 🤝 贡献说明
 
