@@ -62,7 +62,10 @@ class ReadmeExamplesTests(unittest.TestCase):
     def test_readme_maps_skill_documentation_and_contains_contribution_guidance(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("## Skill documentation map", readme)
-        self.assertIn("## Contributing", readme)
+        self.assertIn("## 🤝 贡献说明", readme)
+        self.assertIn("Pull Request 提交到 `main`", readme)
+        self.assertIn("tests/test_skill_contract.py", readme)
+        self.assertIn("tests/test_smoke_workflow.py", readme)
         for relative in (
             "references/evidence-contract.md",
             "references/paper-types.md",
@@ -108,6 +111,11 @@ class ReadmeExamplesTests(unittest.TestCase):
     def test_why_section_explains_note_architecture_and_update_steps(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         why = readme.split("## Why Research Weaver", 1)[1].split("## 示例", 1)[0]
+
+        self.assertIn("assets/research-weaver-why.png", why)
+        why_image = ROOT / "assets" / "research-weaver-why.png"
+        self.assertTrue(why_image.is_file())
+        self.assertEqual(why_image.read_bytes()[:8], b"\x89PNG\r\n\x1a\n")
 
         for concept in (
             "论文定位",
@@ -157,7 +165,7 @@ class ReadmeExamplesTests(unittest.TestCase):
             "## 1. 安装指南 🚀",
             "## 2. 如何使用 📖",
             "## Safety and privacy 🛡️",
-            "## Contributing 🤝",
+            "## 🤝 贡献说明",
         ):
             self.assertIn(heading, readme)
 

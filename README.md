@@ -19,6 +19,8 @@ Research Weaver 是一个论文笔记生成 Skill：从 Zotero 原位读取论�
 
 ## Why Research Weaver 🧭
 
+[![Research Weaver：从普通摘要到证据、连接与研究行动](assets/research-weaver-why.png)](assets/research-weaver-why.png)
+
 **为什么选择它？** 因为一篇好笔记不只要“总结完整”，还要能回到证据，并能继续服务研究。
 
 - 原始 PDF 留在 Zotero，不重复下载、不复制进 Vault；
@@ -341,10 +343,11 @@ Research Weaver特别感谢以下项目和工具所提供的经验/灵感之上�
 - [Obsidian Releases](https://github.com/obsidianmd/obsidian-releases) — 研究笔记与长期知识库的承载环境。
 - [OpenAI Codex](https://github.com/openai/codex) — 执行 Research Weaver Skill 的智能代理环境。
 
-## Contributing 🤝
+## 🤝 贡献说明
 
-感谢改进 Research Weaver。
+请将 Pull Request 提交到 `main`。可能影响最终笔记质量的改动，应同步更新相应的 `references/` 契约，并使用 [`tests/test_skill_contract.py`](tests/test_skill_contract.py) 与 [`tests/test_smoke_workflow.py`](tests/test_smoke_workflow.py) 进行评估。
 
+感谢改进 Research Weaver。以下步骤适用于文档、Skill 契约和辅助脚本的修改。
 
 ### 如何提交修改
 
