@@ -21,13 +21,13 @@ Research Weaver 是一个论文笔记生成 Skill：从 Zotero 原位读取论�
 
 **为什么选择它？** 因为一篇好笔记不只要“总结完整”，还要能回到证据，并能继续服务研究。
 
-- 原始 PDF 留在 Zotero，不重复下载、不复制进 Vault；
-- 论文主张、证据边界和你的推断不会混在一起；
-- 先生成一篇可长期保留的论文笔记，再从中形成假设、实验和文献关系。
+- 联动Zotero、Codex和Obsidian形成工作流，无需在三个软件之间来回跳动；
+- 论文主张、证据边界和你的推断不会混在一起，短时间内形成结构化假设
+- 先生成一篇可长期保留的论文笔记，再从中形成假设、实验和文献关系，让你的新知识与你的新/旧文献相关联，形成知识库。
 
 ### 笔记架构：从读懂论文到继续研究
 
-Research Weaver 生成的不是按章节复述的摘要，而是一份可以继续用于比较、实验设计、综述和写作的研究资产。每篇笔记先记录 Zotero Item Key、Citation Key、DOI、论文类型、语言和源 PDF 路径等身份信息；这里的 PDF 路径始终指向 Zotero 原附件，不会复制论文全文。
+Research Weaver 生成的不是按章节复述的笔记摘要，而是一份可以继续用于比较、实验设计、综述和写作的研究资产。每篇笔记先记录 Zotero Item Key、Citation Key、DOI、论文类型、语言和源 PDF 路径等身份信息；这里的 PDF 路径始终指向 Zotero 原附件，不会复制论文全文。
 
 正文采用七个互相衔接的部分：
 
@@ -58,26 +58,7 @@ Research Weaver 生成的不是按章节复述的摘要，而是一份可以继�
 
 如本次不需要自动连接，只需在指令中加入“本次不要连接已有笔记”。首次 Vault、论文目录和默认语言设置见 [1.4 首次配置](#14-首次配置)，完整连接规则见 [`references/library-weaving.md`](references/library-weaving.md)。
 
-## 示例 📝
 
-<!-- TODO: Add a real before-and-after example here. -->
-
-```text
-paper evidence
-  → traceable research asset
-  → questionable assumption
-  → testable experiment
-  → literature network
-  → research writing
-```
-
-Research Weaver 通过三个契约实现这条路径：
-
-- **证据契约**：区分作者主张、论文证据、结论边界、读者推断和研究建议；
-- **研究转译契约**：把“值得复用的设计 → 所依赖的假设 → 可检验实验 → 后续问题”连成一条因果链；
-- **文献编织契约**：只建立有类型、有理由、有研究用途的论文关系，不用模糊的“相似”链接。
-
-Zotero retains the PDF. Obsidian 只保存派生的 Markdown 笔记与关系；Skill 不把完整 PDF 复制进 Vault。
 
 ## 1. 安装指南 🚀
 
