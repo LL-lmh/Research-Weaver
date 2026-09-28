@@ -60,6 +60,8 @@ Research Weaver 生成的不是按章节复述的笔记摘要，而是一份可�
 
 
 
+![Research Weaver 使用工作流](assets/research-weaver-workflow.png)
+
 ## 1. 安装指南 🚀
 
 ### 1.1 环境要求
