@@ -329,19 +329,10 @@ Research Weaver 按“核心工作流 → 按需加载的领域合约 → 确定
 
 ## 致谢与灵感 🙏
 
-Research Weaver特别感谢以下项目和工具所提供的经验/灵感之上！
-
-### 直接设计灵感
+Research Weaver特别感谢以下项目和工具所提供的经验/灵感：
 
 - [DeepPaperNote](https://github.com/917Dhj/DeepPaperNote) — 启发了单篇论文深度阅读、证据优先和长期可用的 Obsidian 笔记设计。
 - [Zotero + Obsidian + Codex Literature Workflow](https://github.com/guyumengyue/zotero-obsidian-codex-workflow) — 启发了 Zotero、Obsidian 与 Codex 的环境协同、初始化和日常文献工作流。
-
-### 基础生态
-
-- [Zotero](https://github.com/zotero/zotero) — 文献身份、元数据与本地 PDF 的事实源。
-- [Better BibTeX for Zotero](https://github.com/retorquere/zotero-better-bibtex) — BibTeX、Citation Key 与写作工作流生态。
-- [Obsidian Releases](https://github.com/obsidianmd/obsidian-releases) — 研究笔记与长期知识库的承载环境。
-- [OpenAI Codex](https://github.com/openai/codex) — 执行 Research Weaver Skill 的智能代理环境。
 
 ## 🤝 贡献说明
 
@@ -376,13 +367,5 @@ Research Weaver特别感谢以下项目和工具所提供的经验/灵感之上�
 | 证据、笔记、语言、研究转译或文献关系规则 | 对应的 `references/*.md` |
 | Zotero 读取或 Obsidian 安全写入 | `scripts/` 及对应的 `tests/` |
 | Codex 界面名称、简介或默认提示 | `agents/openai.yaml` |
-
-### Pull Request 检查清单
-
-- [ ] 原有 Zotero 只读、PDF 原位读取和 Vault 安全写入边界仍然成立；
-- [ ] 行为变化已有对应测试，且完整测试通过；
-- [ ] 相关 `README.md`、`SKILL.md` 与 `references/` 已同步更新；
-- [ ] 没有提交真实论文、私人路径、凭据或个人笔记；
-- [ ] PR 描述包含验证命令、结果及兼容性影响。
 
 许可证见 [`LICENSE`](LICENSE)。
